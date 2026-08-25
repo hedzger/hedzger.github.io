@@ -10,21 +10,99 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            background-color: #111;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
-            background-color: #000;
-            font-family: Arial, sans-serif;
         }
+        
+        /* Контейнер для кнопки запуску */
+        #launcher-container {
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff9900; /* Фірмовий помаранчевий колір CS */
+        }
+
+        p {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* Стильна кнопка запуску */
+        .play-btn {
+            background-color: #ff9900;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 153, 0, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .play-btn:hover {
+            background-color: #e08800;
+            transform: scale(1.05);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Стилі для iframe (спочатку прихований) */
         iframe {
             width: 100%;
             height: 100%;
             border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Встраиваем официальный веб-эмулятор CS 1.6 -->
-    <iframe src="https://play-cs.com" allow="autoplay; fullscreen; keyboard"></iframe>
+    <!-- Екран запуску гри -->
+    <div id="launcher-container">
+        <h1>Counter-Strike 1.6 Web Port</h1>
+        <p>Click the button below to initialize the browser emulator</p>
+        <button class="play-btn" onclick="startGame()">Play Game</button>
+    </div>
+
+    <!-- Контейнер для вбудовування гри -->
+    <div id="game-holder" style="width: 100%; height: 100%;"></div>
+
+    <script>
+        function startGame() {
+            // 1. Скриваємо кнопку запуску
+            document.getElementById('launcher-container').style.display = 'none';
+            
+            // 2. Створюємо елемент iframe динамічно
+            const iframe = document.createElement('iframe');
+            iframe.src = "https://play-cs.com";
+            iframe.setAttribute('allow', 'autoplay; fullscreen; keyboard');
+            iframe.style.display = 'block';
+            
+            // 3. Вставляємо iframe в сторінку
+            document.getElementById('game-holder').appendChild(iframe);
+        }
+    </script>
 
 </body>
 </html>
